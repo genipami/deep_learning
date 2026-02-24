@@ -98,7 +98,7 @@ def main():
     plt.xticks([1000,10000,100000],["1k", "10k", "100k"])
     plt.grid(True, "major", "both")
     plt.text(gdp_cap[np.argmax(np_pop)], life_exp[np.argmax(np_pop)]+5, "China", fontsize=10) 
-    plt.text(gdp_cap[np.argsort(np.max(np_pop))[-2]], life_exp[np.argsort(np.max(np_pop))[-2]]+5, "India", fontsize=10)
+    plt.text(gdp_cap[np.argsort(np_pop)[-2]], life_exp[np.argsort(np_pop)[-2]]+5, "India", fontsize=10)
     plt.show()
 
 
