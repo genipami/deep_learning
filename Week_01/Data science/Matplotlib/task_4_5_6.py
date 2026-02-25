@@ -100,6 +100,7 @@ def main():
     plt.text(gdp_cap[np.argmax(np_pop)], life_exp[np.argmax(np_pop)]+5, "China", fontsize=10) 
     plt.text(gdp_cap[np.argsort(np_pop)[-2]], life_exp[np.argsort(np_pop)[-2]]+5, "India", fontsize=10)
     plt.show()
+    #Answer: A. The countries in blue, corresponding to Africa, have both low life expectancy and a low GDP per capita.
 
 
 if __name__ == "__main__":
