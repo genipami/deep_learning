@@ -31,6 +31,7 @@ def simulate_walk(num_throws: int, should_clamp:bool = True, is_clumsy:bool=Fals
     return walk
 
 def simulate_n_walks(num_walks:int, num_throws:int, should_clamp:bool = True, is_clumsy:bool=False)  -> list:
+    np.random.default_rng(seed=123)
     all_walks: list = []
 
     for i in range(0,num_walks):

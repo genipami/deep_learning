@@ -2,7 +2,7 @@ import numpy as np
 from random_walks_helpers import simulate_roll
 
 def main():
-    np.random.seed(123)
+    np.random.default_rng(seed=123)
     floating = np.random.rand()
     first_int = np.random.randint(1,7,1)[0]
     second_int = np.random.randint(1,7,1)[0]
