@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from random_walks_helpers import simulate_n_walks
 
 def main():
-    np.random.default_rng(seed=123)
+    np.random.seed(123)
     all_walks = simulate_n_walks(500, 100, True, True)
     np_all_walks = np.array(all_walks)
     ending_steps = np_all_walks[:,-1]

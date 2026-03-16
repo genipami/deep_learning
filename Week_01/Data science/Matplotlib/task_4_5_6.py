@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def main():
     life_exp = [
         43.828, 76.423, 72.301, 42.731, 75.32, 81.235, 79.829, 75.635, 64.062,
@@ -80,25 +81,47 @@ def main():
         71.158647, 29.170398, 60.776238, 301.139947, 3.447496, 26.084662,
         85.262356, 4.018332, 22.211743, 11.746035, 12.311143
     ]
-    colors = ['red', 'green', 'blue', 'blue', 'yellow', 'black', 'green', 'red', 'red', 'green', 'blue', 'yellow', 'green', 'blue', 'yellow', 'green', 'blue', 'blue', 'red', 'blue', 'yellow', 'blue', 'blue', 'yellow', 'red', 'yellow', 'blue', 'blue', 'blue', 'yellow', 'blue', 'green', 'yellow', 'green', 'green', 'blue', 'yellow', 'yellow', 'blue', 'yellow', 'blue', 'blue', 'blue', 'green', 'green', 'blue', 'blue', 'green', 'blue', 'green', 'yellow', 'blue', 'blue', 'yellow', 'yellow', 'red', 'green', 'green', 'red', 'red', 'red', 'red', 'green', 'red', 'green', 'yellow', 'red', 'red', 'blue', 'red', 'red', 'red', 'red', 'blue', 'blue', 'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue', 'yellow', 'red', 'green', 'blue', 'blue', 'red', 'blue', 'red', 'green', 'black', 'yellow', 'blue', 'blue', 'green', 'red', 'red', 'yellow', 'yellow', 'yellow', 'red', 'green', 'green', 'yellow', 'blue', 'green', 'blue', 'blue', 'red', 'blue', 'green', 'blue', 'red', 'green', 'green', 'blue', 'blue', 'green', 'red', 'blue', 'blue', 'green', 'green', 'red', 'red', 'blue', 'red', 'blue', 'yellow', 'blue', 'green', 'blue', 'green', 'yellow', 'yellow', 'yellow', 'red', 'red', 'red', 'blue', 'blue']
+    colors = [
+        'red', 'green', 'blue', 'blue', 'yellow', 'black', 'green', 'red',
+        'red', 'green', 'blue', 'yellow', 'green', 'blue', 'yellow', 'green',
+        'blue', 'blue', 'red', 'blue', 'yellow', 'blue', 'blue', 'yellow',
+        'red', 'yellow', 'blue', 'blue', 'blue', 'yellow', 'blue', 'green',
+        'yellow', 'green', 'green', 'blue', 'yellow', 'yellow', 'blue',
+        'yellow', 'blue', 'blue', 'blue', 'green', 'green', 'blue', 'blue',
+        'green', 'blue', 'green', 'yellow', 'blue', 'blue', 'yellow', 'yellow',
+        'red', 'green', 'green', 'red', 'red', 'red', 'red', 'green', 'red',
+        'green', 'yellow', 'red', 'red', 'blue', 'red', 'red', 'red', 'red',
+        'blue', 'blue', 'blue', 'blue', 'blue', 'red', 'blue', 'blue', 'blue',
+        'yellow', 'red', 'green', 'blue', 'blue', 'red', 'blue', 'red',
+        'green', 'black', 'yellow', 'blue', 'blue', 'green', 'red', 'red',
+        'yellow', 'yellow', 'yellow', 'red', 'green', 'green', 'yellow',
+        'blue', 'green', 'blue', 'blue', 'red', 'blue', 'green', 'blue', 'red',
+        'green', 'green', 'blue', 'blue', 'green', 'red', 'blue', 'blue',
+        'green', 'green', 'red', 'red', 'blue', 'red', 'blue', 'yellow',
+        'blue', 'green', 'blue', 'green', 'yellow', 'yellow', 'yellow', 'red',
+        'red', 'red', 'blue', 'blue'
+    ]
     np_pop = np.array(pop)
     np_colors = np.array(colors)
-    plt.scatter(
-        gdp_cap,
-        life_exp,
-        s = np_pop*2,
-        c = np_colors[range(0, len(pop))]
-    )
+    plt.scatter(gdp_cap,
+                life_exp,
+                s=np_pop * 2,
+                c=np_colors[range(0, len(pop))])
     plt.ylabel("Life Expectancy [in years]")
     plt.xlabel("GDP per Capita [in USD]")
-    plt.title(
-        "World Development in 2007")
+    plt.title("World Development in 2007")
     plt.tight_layout()
     plt.xscale("log")
-    plt.xticks([1000,10000,100000],["1k", "10k", "100k"])
+    plt.xticks([1000, 10000, 100000], ["1k", "10k", "100k"])
     plt.grid(True, "major", "both")
-    plt.text(gdp_cap[np.argmax(np_pop)], life_exp[np.argmax(np_pop)]+5, "China", fontsize=10) 
-    plt.text(gdp_cap[np.argsort(np_pop)[-2]], life_exp[np.argsort(np_pop)[-2]]+5, "India", fontsize=10)
+    plt.text(gdp_cap[np.argmax(np_pop)],
+             life_exp[np.argmax(np_pop)] + 5,
+             "China",
+             fontsize=10)
+    plt.text(gdp_cap[np.argsort(np_pop)[-2]],
+             life_exp[np.argsort(np_pop)[-2]] + 5,
+             "India",
+             fontsize=10)
     plt.show()
     #Answer: A. The countries in blue, corresponding to Africa, have both low life expectancy and a low GDP per capita.
 
