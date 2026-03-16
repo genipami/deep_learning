@@ -2,7 +2,7 @@ import numpy as np
 
 LEARNING_RATE = 0.001
 rng = np.random.default_rng(42)
-def create_dataset(n: int):
+def create_dataset(n: int) -> list:
     dataset: list = []
 
     for i in range(0, n):
