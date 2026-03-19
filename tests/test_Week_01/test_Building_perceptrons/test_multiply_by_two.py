@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-import multiply_by_two as mbt
+import Week_01.Engineering.Building_perceptrons.multiply_by_two as mbt
 
 class Test_Create_Dataset(unittest.TestCase):
     def test_when_positive_integer_n_is_passed_then_dataset_with_n_elements_is_created(self):

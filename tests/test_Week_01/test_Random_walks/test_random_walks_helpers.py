@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 import numpy as np
-import random_walks_helpers as rw
+import Week_01.Engineering.Random_walks.random_walks_helpers as rw
 
 
 class Test_Simulate_Roll(unittest.TestCase):
@@ -65,7 +65,7 @@ class Test_Simulate_Roll(unittest.TestCase):
 
 class Test_Simulate_Walk(unittest.TestCase):
 
-    @patch("random_walks_helpers.simulate_roll")
+    @patch("rw.simulate_roll")
     def test_walk_contains_initial_positions_before_each_roll(self, mock_roll):
         mock_roll.side_effect = [
             (2, 1),
@@ -75,7 +75,7 @@ class Test_Simulate_Walk(unittest.TestCase):
         walk = rw.simulate_walk(3)
         self.assertEqual(walk, [0, 1, 2])
 
-    @patch("random_walks_helpers.simulate_roll")
+    @patch("rw.simulate_roll")
     def test_walk_has_length_equal_to_num_throws(self, mock_roll):
         mock_roll.return_value = (3, 1)
         walk = rw.simulate_walk(5)
@@ -84,7 +84,7 @@ class Test_Simulate_Walk(unittest.TestCase):
 
 class Test_Simulate_N_Walks(unittest.TestCase):
 
-    @patch("random_walks_helpers.simulate_walk")
+    @patch("rw.simulate_walk")
     def test_returns_list_of_n_walks(self, mock_simulate):
         mock_simulate.return_value = [0, 1, 2]
         walks = rw.simulate_n_walks(4, 3)
@@ -92,7 +92,7 @@ class Test_Simulate_N_Walks(unittest.TestCase):
         for w in walks:
             self.assertEqual(w, [0, 1, 2])
 
-    @patch("random_walks_helpers.simulate_walk")
+    @patch("rw.simulate_walk")
     def test_each_walk_has_correct_length(self, mock_simulate):
         mock_simulate.return_value = [0] * 10
         walks = rw.simulate_n_walks(3, 10)

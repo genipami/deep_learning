@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 import copy
-import square_nn as sn
+import Week_01.Engineering.Building_perceptrons.square_nn as sn
 
 
 class Test_Create_Dataset(unittest.TestCase):
