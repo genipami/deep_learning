@@ -35,6 +35,39 @@ class TestInit(unittest.TestCase):
         self.assertEqual(expected_prev, actual._prev)
         self.assertEqual(expected_op, actual._op)
 
+    def test_when_creating_with_data_3_and_label_k_then_data_is_3_and_label_is_k(self):
+        #Arrange
+        data_to_pass = 3
+        prev_to_pass = Value(4)
+        label_to_pass = "k"
+
+        expected_data = data_to_pass
+        expected_prev = prev_to_pass
+        expected_op = None
+        expected_label = label_to_pass
+
+        #Act
+        actual = Value(data_to_pass, prev_to_pass, None, label_to_pass)
+
+        #Assert
+        self.assertEqual(expected_data, actual.data)
+        self.assertEqual(expected_prev, actual._prev)
+        self.assertEqual(expected_op, actual._op)
+        self.assertEqual(expected_label, actual.label)
+
+    def test_when_creating_a_value_with_data_7_and_no_other_params_then_graident_is_zero(self):
+        #Arrange
+        data_to_pass = 7
+        expected_data = data_to_pass
+        expected_gradient = 0
+
+        #Act
+        actual = Value(data_to_pass)
+
+        #Assert
+        self.assertEqual(expected_gradient, actual.gradient)
+        self.assertEqual(expected_data, actual.data)
+
 class TestStr(unittest.TestCase):
     def test_when_passing_value_with_data_5_string_representation_is_as_expected(self):
         #Arrange
@@ -136,3 +169,35 @@ class TestTrace(unittest.TestCase):
         #Assert
         self.assertCountEqual(expected_nodes, actual_nodes)
         self.assertCountEqual(expected_edges, actual_edges)
+
+class TestSetLabel(unittest.TestCase):
+    def test_when_setting_label_a_to_value_with_data_5_then_label_is_a_and_data_is_5(self):
+        #Arrange
+        value = Value(5)
+        label_to_set = "a"
+        expected_data = 5
+        expected_label = label_to_set
+
+        #Act
+        value.set_label(label_to_set)
+        actual = value
+
+        #Assert
+        self.assertEqual(expected_data, actual.data)
+        self.assertEqual(expected_label, actual.label)
+
+class TestSetGradient(unittest.TestCase):
+    def test_when_setting_gradient_7_to_value_with_data_5_then_gradient_is_7_and_data_is_5(self):
+        #Arrange
+        value = Value(5)
+        gradient_to_set = 7
+        expected_data = 5
+        expected_gradient = gradient_to_set
+
+        #Act
+        value.set_gradient(gradient_to_set)
+        actual = value
+
+        #Assert
+        self.assertEqual(expected_data, actual.data)
+        self.assertEqual(gradient_to_set, actual.gradient)

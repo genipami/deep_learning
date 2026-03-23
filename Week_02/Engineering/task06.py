@@ -1,10 +1,8 @@
 class Value():
-    def __init__(self, data:int, _prev:list = None, _op:str = None, label:str = None, gradient = 0):
+    def __init__(self, data, _prev=None, _op = None):
         self.data = data
         self._prev = _prev
         self._op = _op
-        self.label = label
-        self.gradient = gradient
 
 
     def __str__(self):
@@ -19,14 +17,6 @@ class Value():
     
     def __mul__(self, other):
         return Value(self.data * other.data, {self, other}, "*")
-    
-    def set_label(self, label:str):
-        if label is not None:
-            self.label = label
-
-    def set_gradient(self, gradient:float):
-        if gradient is not None:
-            self.gradient = gradient
     
 def trace(input):
         queue = [input]

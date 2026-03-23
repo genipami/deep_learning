@@ -1,0 +1,16 @@
+class Value():
+    def __init__(self, data):
+        self.data = data
+
+
+    def __str__(self):
+        return f"Value(data={self.data})"
+    
+    def __repr__(self):
+        return f"Value(data={self.data})"
+
+
+    def __add__(self, other):
+        return Value(self.data + other.data)
+    
+    

@@ -1,11 +1,12 @@
 import graphviz
 
 class Value():
-    def __init__(self, data:int, _prev:list = None, _op:str = None, label:str = None):
+    def __init__(self, data:int, _prev:list = None, _op:str = None, label:str = None, gradient = 0):
         self.data = data
         self._prev = _prev
         self._op = _op
         self.label = label
+        self.gradient = gradient
 
 
     def __str__(self):
@@ -21,11 +22,15 @@ class Value():
     def __mul__(self, other):
         return Value(self.data * other.data, {self, other}, "*")
     
-    def set_label(self, label:str) -> None:
+    def set_label(self, label:str):
         if label is not None:
             self.label = label
+
+    def set_gradient(self, gradient:float):
+        if gradient is not None:
+            self.gradient = gradient
     
-def trace(input) -> tuple:
+def trace(input):
         queue = [input]
         nodes = set()
         edges = set()
@@ -38,13 +43,11 @@ def trace(input) -> tuple:
                 continue
             
             for prev in curr._prev:
-                if prev is None:
-                    continue
                 edge = (prev, curr)
                 edges.add(edge)
                 queue.append(prev)
 
-        return(nodes, edges)        
+        return(nodes, edges)    
 
 def draw_dot(root: Value) -> graphviz.Digraph:
     dot = graphviz.Digraph(filename='01_result', format='svg', graph_attr={
@@ -54,7 +57,7 @@ def draw_dot(root: Value) -> graphviz.Digraph:
     for i, n in enumerate(nodes):
         uid = str(id(n))
         # for any value in the graph, create a rectangular ('record') node
-        dot.node(name=uid, label=f'{{ {n.label} | data: {n.data} }}', shape='record')
+        dot.node(name=uid, label=f'{{ {n.label} | data: {n.data} | grad: {n.gradient}}}', shape='record')
         if n._op:
             # if this value is a result of some operation, create an "op" node for the operation
             dot.node(name=uid + n._op, label=n._op)
@@ -79,6 +82,13 @@ def main() -> None:
     x_times_y_plus_z.set_label("d")
     result:Value = x_times_y_plus_z * a
     result.set_label("L")
+    result.set_gradient(1.0) #the derivative of L in regards to L is 1
+    a.set_gradient(4.0) #the derivative of L in regards to f is (d*f)' => d = 4 
+    x_times_y_plus_z.set_gradient(5.0) #similarly to the previous one the derivative of L in regards to d is (d*f)' => f = 5
+    z.set_gradient(5.0) #the derivative of L in regards to c is (the derivative of L in regards to d)*(the derivative of d in regards to c) => 5*1 => 5
+    x_times_y.set_gradient(5.0) #the derivative of L in regards to e is (the derivative of L in regards to d)*(the derivative of d in regards to e) => 5*1 => 5
+    x.set_gradient(-15.0) #the derivative of L in regards to a is (the derivative of L in regards to e)*(the derivative of e in regards to a) => 5*(-3) => -15
+    y.set_gradient(10.0) #the derivative of L in regards to b is (the derivative of L in regards to e)*(the derivative of e in regards to b) => 5*2 => 10
     
     # This will create a new directory and store the output file there.
     # With "view=True" it'll automatically display the saved file.

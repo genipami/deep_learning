@@ -1,11 +1,12 @@
 import graphviz
 
 class Value():
-    def __init__(self, data:int, _prev:list = None, _op:str = None, label:str = None):
+    def __init__(self, data:int, _prev:list = None, _op:str = None, label:str = None, gradient = 0):
         self.data = data
         self._prev = _prev
         self._op = _op
         self.label = label
+        self.gradient = gradient
 
 
     def __str__(self):
@@ -21,11 +22,11 @@ class Value():
     def __mul__(self, other):
         return Value(self.data * other.data, {self, other}, "*")
     
-    def set_label(self, label:str) -> None:
+    def set_label(self, label:str):
         if label is not None:
             self.label = label
     
-def trace(input) -> tuple:
+def trace(input):
         queue = [input]
         nodes = set()
         edges = set()
@@ -38,13 +39,11 @@ def trace(input) -> tuple:
                 continue
             
             for prev in curr._prev:
-                if prev is None:
-                    continue
                 edge = (prev, curr)
                 edges.add(edge)
                 queue.append(prev)
 
-        return(nodes, edges)        
+        return(nodes, edges)      
 
 def draw_dot(root: Value) -> graphviz.Digraph:
     dot = graphviz.Digraph(filename='01_result', format='svg', graph_attr={
@@ -54,7 +53,7 @@ def draw_dot(root: Value) -> graphviz.Digraph:
     for i, n in enumerate(nodes):
         uid = str(id(n))
         # for any value in the graph, create a rectangular ('record') node
-        dot.node(name=uid, label=f'{{ {n.label} | data: {n.data} }}', shape='record')
+        dot.node(name=uid, label=f'{{ {n.label} | data: {n.data} | grad: {n.gradient}}}', shape='record')
         if n._op:
             # if this value is a result of some operation, create an "op" node for the operation
             dot.node(name=uid + n._op, label=n._op)
